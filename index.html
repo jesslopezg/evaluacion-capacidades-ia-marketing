@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Evaluación de capacidades de uso de IA aplicada al marketing y al entorno empresarial." />
+  <title>AI Marketing Capability Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Aplicación de IA · Marketing</p>
+      <h1>AI Marketing Capability Lab</h1>
+      <p class="subtitle">Evaluación de capacidades para usar, cuestionar y aplicar IA en decisiones de marketing.</p>
+    </div>
+    <div class="progress-wrap" aria-label="Progreso de la evaluación">
+      <div class="progress-label"><span id="progressText">0%</span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="intro" class="card hero">
+      <div class="badge">Diagnóstico aplicado</div>
+      <h2>No mide solo conocimiento. Mide criterio.</h2>
+      <p>La evaluación combina conocimiento conceptual, formulación de prompts, análisis crítico de respuestas generadas por IA y toma de decisiones en escenarios de marketing.</p>
+      <div class="grid-2 compact">
+        <label>Nombre del estudiante<input id="studentName" type="text" placeholder="Nombre completo" /></label>
+        <label>Código / matrícula<input id="studentId" type="text" placeholder="Código del estudiante" /></label>
+      </div>
+      <div class="dimensions">
+        <span>Alfabetización IA</span><span>Prompting</span><span>Evaluación crítica</span><span>Riesgo y ética</span><span>Aplicación en marketing</span>
+      </div>
+      <button class="primary" onclick="startAssessment()">Comenzar evaluación</button>
+    </section>
+
+    <form id="assessment" class="hidden" onsubmit="return false;">
+      <section class="card section-card">
+        <div class="section-head"><div><p class="section-number">01</p><h2>Fundamentos y criterio de uso</h2></div><span class="weight">20 pts</span></div>
+        <p class="section-desc">Selecciona la mejor respuesta. Algunas opciones son plausibles; elige la que refleje mejor criterio empresarial.</p>
+        <div id="mcqContainer"></div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head"><div><p class="section-number">02</p><h2>Construcción de prompts</h2></div><span class="weight">25 pts</span></div>
+        <p class="section-desc">Diseña un prompt para resolver el caso. La app valora elementos observables del prompt: contexto, objetivo, audiencia, datos, restricciones, formato y criterio de calidad.</p>
+        <div class="scenario"><strong>Caso:</strong> Una cadena regional de cafeterías quiere aumentar la recompra de clientes de 20–35 años. Cuenta con tickets de compra, frecuencia de visita, productos comprados y respuestas de una encuesta de satisfacción. Debes pedir a una IA apoyo para proponer una estrategia de retención, evitando inventar datos.</div>
+        <label>Tu prompt<textarea id="promptAnswer" rows="9" placeholder="Escribe aquí el prompt que utilizarías..."></textarea></label>
+        <div id="promptFeedback" class="live-feedback"></div>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head"><div><p class="section-number">03</p><h2>Interacción y evaluación de una respuesta de IA</h2></div><span class="weight">20 pts</span></div>
+        <p class="section-desc">No basta con aceptar una respuesta generada. Identifica sus debilidades y formula una mejor instrucción.</p>
+        <div class="ai-box"><div class="ai-label">Respuesta simulada de IA</div><p>“La mejor estrategia es ofrecer 30% de descuento cada semana a todos los clientes, enviar cinco mensajes promocionales por día y usar los datos de compra para predecir exactamente quién abandonará la marca. Esta estrategia incrementará la recompra en al menos 25% durante el próximo mes.”</p></div>
+        <label>¿Qué problemas encuentras en esta respuesta?<textarea id="critiqueAnswer" rows="7" placeholder="Analiza supuestos, evidencia, riesgos y calidad de la recomendación..."></textarea></label>
+        <label>Escribe un prompt de seguimiento para mejorar la respuesta de la IA<textarea id="followupAnswer" rows="6" placeholder="Ej.: revisa la recomendación considerando..."></textarea></label>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head"><div><p class="section-number">04</p><h2>Decisión empresarial en marketing</h2></div><span class="weight">20 pts</span></div>
+        <div class="scenario"><strong>Situación:</strong> Una marca de cuidado personal utiliza IA generativa para diseñar tres campañas. La variante A obtiene el CTR más alto; la B tiene menor CTR pero mayor conversión; la C produce mayor interacción en redes, aunque contiene afirmaciones que el equipo legal aún no ha verificado.</div>
+        <div class="question-block">
+          <p><strong>¿Qué decisión tomarías?</strong></p>
+          <label class="option"><input type="radio" name="businessDecision" value="0"> Publicar C porque genera mayor interacción.</label>
+          <label class="option"><input type="radio" name="businessDecision" value="3"> Elegir A porque el CTR es el indicador más directo de éxito.</label>
+          <label class="option"><input type="radio" name="businessDecision" value="5"> Priorizar B provisionalmente y comparar rentabilidad/conversión, mientras C se detiene hasta validar claims.</label>
+          <label class="option"><input type="radio" name="businessDecision" value="2"> Combinar las tres campañas sin más análisis para no perder información.</label>
+        </div>
+        <label>Justifica tu decisión como si la presentaras al gerente de marketing.<textarea id="businessJustification" rows="7" placeholder="Explica qué indicadores usarías, qué riesgos revisarías y qué harías después..."></textarea></label>
+      </section>
+
+      <section class="card section-card">
+        <div class="section-head"><div><p class="section-number">05</p><h2>Riesgo, ética y gobernanza</h2></div><span class="weight">15 pts</span></div>
+        <div id="riskContainer"></div>
+      </section>
+
+      <section class="card actions-card">
+        <label class="integrity"><input type="checkbox" id="integrityCheck" /> Confirmo que las respuestas abiertas reflejan mi propio análisis y que cualquier apoyo de IA utilizado fue revisado críticamente.</label>
+        <button class="primary" onclick="finishAssessment()">Finalizar y generar reporte</button>
+        <button class="secondary" onclick="saveDraft()">Guardar borrador en este dispositivo</button>
+      </section>
+    </form>
+
+    <section id="results" class="card hidden">
+      <div class="results-header">
+        <div><p class="eyebrow">Resultado</p><h2 id="scoreTitle">Perfil de capacidad</h2></div>
+        <div class="score-circle"><span id="totalScore">0</span><small>/100</small></div>
+      </div>
+      <div id="levelBadge" class="level-badge"></div>
+      <p id="summaryText" class="summary"></p>
+      <div id="dimensionScores" class="score-grid"></div>
+      <div class="report-block"><h3>Retroalimentación</h3><div id="feedbackList"></div></div>
+      <div class="report-block"><h3>Validación del intento</h3><p class="muted">Código de intento: <strong id="attemptCode"></strong></p><p class="muted">Fecha/hora local: <span id="attemptTime"></span></p></div>
+      <div class="result-actions">
+        <button class="primary" onclick="window.print()">Imprimir / Guardar PDF</button>
+        <button class="secondary" onclick="downloadJSON()">Descargar evidencia JSON</button>
+        <button class="secondary" onclick="downloadCSV()">Descargar resumen CSV</button>
+        <button class="ghost" onclick="resetAssessment()">Nueva evaluación</button>
+      </div>
+    </section>
+  </main>
+  <footer><p>AI Marketing Capability Lab · Instrumento académico demostrativo</p></footer>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
