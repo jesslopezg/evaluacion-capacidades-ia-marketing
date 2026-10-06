@@ -1,0 +1,3 @@
+const APP_CONFIG = {
+  RESULTS_WEBHOOK_URL: ""
+};
